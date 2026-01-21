@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Acervo | {{ item.name }}{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-7 gap-6" style="padding-left: 2%; padding-top: 2%; padding-bottom: 2%;">
+    <div class="col-span-3">
+        <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for image in item.images.all%}
+                    <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="{{ forloop.counter0 }}" 
+                    class="{% if forloop.first %}active{% endif %}" aria-current="{% if forloop.first %}true{% endif%}" aria-label="Slide {{ forloop.counter }}"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner rounded-xl">
+                {% for image in item.images.all %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.image.url }}" class="d-block w-full object-cover" style="height:auto;" alt="{{ item.name}}">
+                    </div>
+                {% empty %}
+                    <div class="carousel-item active">
+                        <div class="bg-gray-200 d-flex align-items-center justify-content-center" style="height: 500px">
+                            <span class="text-gray-500">Sem imagens disponíveis</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if item.images.count > 1 %}
+                <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#mainSlider" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Próximo</span>
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
