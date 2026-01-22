@@ -1,7 +1,29 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Bem vindo{% endblock %}
+{% block title %}Início{% endblock %}
 
 {% block content %}
-<h1>Página Inicial</h1>
+<div class="grid grid-cols-7 gap-6" style="padding: 2%;">
+    <div class="col-span-3">
+        <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for item in random_items %}
+                    <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="{{ forloop.counter0 }}" 
+                    class="{% if forloop.first %}active{% endif %}" aria-current="{% if forloop.first %}true{% endif%}" aria-label="Slide {{ forloop.counter }}"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner rounded-xl shadow-lg">
+                {% for item in random_items %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        {% with item.images.all|first as first_image %}
+                            <a href="{% url 'item:detail' item.id %}">
+                                <img src="{{ first_image.image.url }}" class="d-block w-full object-cover" style="height:auto;" alt="{{ item.name }}">
+                            </a>
+                        {% endwith %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

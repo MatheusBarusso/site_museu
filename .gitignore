@@ -1,2 +1,3 @@
-site_museu/venv
-site_museu/django/media/item_images
+/venv/
+/django/media/item_images
+
