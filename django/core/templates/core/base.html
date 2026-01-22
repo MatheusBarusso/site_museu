@@ -16,10 +16,13 @@
     <body>
         <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
             {% load static %}
-            <img src="{% static 'assets/LogoSite.png' %}" alt="logo_museu" style="height: 80px;">
+            <a href="/">
+                            <img src="{% static 'assets/LogoSite.png' %}" alt="logo_museu" style="height: 80px;">
+            </a>
             <div class="space-x-6">
                 <a href="{% url 'collection' %}" class="text-xl font-semibold">Acervo</a>
-                <a href="#" class="text-xl font-semibold">Contato</a>
+                <a href="{% url 'contact' %}" class="text-xl font-semibold">Contato</a>
+                <a href="{% url 'events' %}" class="text-xl font-semibold">Eventos</a>
                 <a href="/admin" class="px-4 py-3 text-lg font-semibold bg-gray-800 text-white rounded-xl hover:bg-teal-600">Dashboard</a>
             </div>
         </nav>
