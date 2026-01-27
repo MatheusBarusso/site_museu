@@ -19,7 +19,7 @@ class Item(models.Model):
     year = models.IntegerField(blank=True, null=True)
     manufacturer = models.CharField(blank=True, max_length=255)
     wikipedia = models.URLField(blank=True, null=True)
-    created_by = models.ForeignKey(User, related_name='items', on_delete=models.PROTECT)
+    created_by = models.ForeignKey(User, related_name='nome_criado', on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
@@ -31,4 +31,22 @@ class ItemImage(models.Model):
 
     def __str__(self):
         return f"Imagem de {self.item.name}"
+    
+
+class Events(models.Model):
+    name = models.CharField(max_length=255)
+    year = models.IntegerField()
+    activity = models.TextField()
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural="Events" 
+
+
+class EventsImage(models.Model):
+    evento = models.ForeignKey(Events, related_name='events_pics', on_delete=models.CASCADE)
+    event_image = models.ImageField(upload_to='events_images')
+
 
